@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models\Biometric;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class BiometricCommunicationLog extends Model
+{
+    protected $fillable = ['device_id', 'command', 'status', 'request_data', 'response_data', 'error_message', 'response_time_ms', 'additional_info'];
+
+    protected function casts(): array
+    {
+        return ['request_data' => 'array', 'response_data' => 'array', 'additional_info' => 'array'];
+    }
+
+    public function device(): BelongsTo
+    {
+        return $this->belongsTo(BiometricDevice::class, 'device_id');
+    }
+}
